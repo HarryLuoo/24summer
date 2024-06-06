@@ -1,4 +1,13 @@
 #import "@preview/physica:0.9.3": *
+
+#set math.equation(numbering: "(1)")
+
+#set page(margin: (
+  top: 2cm,
+  bottom: 2cm,
+  x: 4cm,
+))
+
 #set heading(numbering: (a, ..nums) => {
   let level = nums.pos().len()
   let pattern = if level == 1 {
@@ -10,6 +19,8 @@
     numbering(pattern, ..nums)
   }
 })
+
+
 
 
 = Notes on Quantum computation and quantum information by Nielsen and Chuang
@@ -269,7 +280,10 @@ Obviously, linear combination is invariant under positiveness, so $
 $ 
 Recall property one: 
 $ 
-    sum_(i)^(n) f(c_i) &= 1 \ 
+    sum_(i)^(n) f(c_i) &= 1 $ 
+         
+    $ 
+    
      sum_(i)^(n-1) f(c_i) +  f_(c_n) &= 1 \ 
     sum_(i)^(n-1) (dif f(c_i))/(dif c_1) + (dif f(c_n))/(dif c_1)    & = 0 quad && (*)\ 
     (dif )/(dif c_1) f(c_1) - f'(sqrt(k^2 - c_1^2 - c_2^2 - dots) ) dot (c_1)/(sqrt(k^2 - c_1^2 dots ) ) & = 0 \ 
@@ -282,4 +296,42 @@ $
 Thus $ 
       1/c_1 (dif )/(dif c_1) f(c_1) &=  1/c_2 (dif )/(dif c_2) f(c_2) \ 
       (dif )/(dif c_1)( 1/c_1 (dif )/(dif c_1) f(c_1)) & = (dif )/(dif c_1) underbrace(( 1/c_2 (dif )/(dif c_2) f(c_2) ) , "idpt of" c_1) = 0 
+$ 
+Integrating the first term as our apporach to this ODE:
+$ 
+    f(c_1) =  lambda/2 c_1^2 + mu 
+$ 
+It is obvious that we can generalize the above to any $c_i$,
+$ 
+    f(c) = lambda/2 c^2 + mu
+$ 
+We meditate on an initial condition: $ 
+    f(0) = P(ket(psi) = 0 ket(E_i)) = 0
+    $ This is obvious as the probability of not being in any eigenstate is 0. And we can see that $f(0) = mu = 0$ 
+
+Now recall the first constrain:
+$ 
+    sum_(i) f(c_i ) = 1   
+$ We exploit this constrain using the following special case to find $lambda$
+
+$ 
+    f(k) + f(0) + f(0) + f(0) + dots = 1 \
+    f(k) = 1 = lambda/2 k^2 \
+    => lambda = 2/k^2 
+$ 
+
+Collecting the above, $ 
+    f(c) = c^2/k^2
+$ We have the freedom to choose $k=1$ 
+
+Thus, we have the Born's Rule:$ 
+#rect(inset: 8pt)[
+$ display(   p(E = E_i)=  f(c_i)= abs(c_i)^2 = abs(braket(E_i,psi))^2)$
+]
+
+$ 
+
+When applied to a continuous basis, we have the probability density funciton $ 
+     ket(psi) = integral dif x psi(x) ket(x) \
+     => p(x) = abs(psi(x))^2
 $ 
