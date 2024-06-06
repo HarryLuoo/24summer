@@ -1,5 +1,15 @@
 #import "@preview/physica:0.9.3": *
-#set heading(numbering:"1.I")
+#set heading(numbering: (a, ..nums) => {
+  let level = nums.pos().len()
+  let pattern = if level == 1 {
+    "1"
+  } else if level == 2 {
+    "1.1)"
+  }
+  if pattern != none {
+    numbering(pattern, ..nums)
+  }
+})
 
 
 = Notes on Quantum computation and quantum information by Nielsen and Chuang
@@ -127,3 +137,149 @@ $
                      &= sum_i c_i^* d_i 
 $ 
 When $c,d in bb(N)$, $braket(phi,psi) = sum_(i) c_i d_i  $  is simply the dot product.
+
+== Continuous basis
+In a Hilbert space, we can represent continuous functions as a linear combination of a set of continous basis ${ket(x)| x in R}$. The mathematicians said so and we do not question the validity of this argument on our own.
+
+ An example would be $ 
+    ket(psi) =  integral  dif x med c(x) med ket(x)
+$ 
+Where $c(x)$ is a function that maps $x$ to the coefficient $c(x)$. 
+=== representatio of continuous orthonormal basis
+Similar to the discrete case, we can represent the continuous orthonormal basis ${ket(x)| x in bb(R)}$ as: 
+$ 
+braket(x_i,x_j) =  delta(x_i - x_j) 
+$ where $delta(x_i - x_j)$ is the Dirac delta function. We can be pragmatic and understand the Dirac Delta function as ANY function that satisfies the following properties:
+$ 
+    integral  dif x med f(x) delta(c-x) = f(c) \
+    delta(c - x) = cases(1 quad x = c, 0 quad x eq.not c)
+$ 
+ 
+=== Inner product between two continuous vectors
+$ 
+    braket(psi,phi) &= ( integral psi(x) bra(x) dif  x) ( integral phi(y) ket(y) dif y) \
+                   &= integral.double  dif  psi^*(x) phi(y)  dif x dif y  med braket(x,y) \ 
+                   & = integral dif x psi^*(x)   med underbrace(integral dif y phi(y) delta(x-y), delta "property") \ 
+                   & = integral dif x psi^*(x) med phi(x)             
+$ 
+We have done a inner product of wavefunctions.
+
+=== Finding coefficients of continuous basis
+notice $ 
+    braket(x_(0), psi) &= bra(x_0)(integral dif x psi(x) ket(x)) \ 
+    & = integral dif x psi(x)    braket(x_0,x) \ 
+    & = integral  dif x psi (x) med delta(x_0 - x) \ 
+    & = psi(x_0) 
+$ 
+So, the coefficient function $psi(x_0) = braket(x_0,psi)$ 
+
+== Bra and Braket notation
+=== Linear functionals
+A linear functional is a linear function that maps a vector to a scalar: $ 
+    L arrow(v) = c, quad c in bb(F) 
+$ 
+ $L$ maps from the vector space to the field of scalars, or $L: bb(C)^n -> bb(F)$
+
+ $L$ is actually an $1 times n$ matrix, or a row vector. 
+
+  === Dual Space $ bold(V)^*$
+
+Set of all $L$, where each $L$ is a linear funcitonal s.t. $L  bold(V) = c in bb(F)$. More rigorously we can say $ 
+     bold(V)^* = {L:  bold(V) -> F | L "is linear"} 
+$ 
+   
+=== Bra
+- $bra(psi)$ is a shorthand of a linear functional inside a Hilbert dual space. It is an operator that when acting on a vector, will spit out a constant. $ 
+    bra(psi) med ket(phi) = c in bb(C)
+$ 
+==== Riesz Representation theorem 
+For any linear functional $L_phi$ s.t. $ 
+    L_phi arrow(v) = "InProd"(arrow(phi), arrow(v)) 
+$ where $arrow(phi)$ is a unique vector. In hilbert space,  this unique vector is $bra(phi)$ 
+   
+ So it follows that $ 
+     bra(phi) ket(psi) = braket(phi,psi) 
+ $ 
+
+=== Complex conjegate
+Recall the fact that $ 
+    braket(phi,psi) = sum_(i) c_i^* d_i   = bra(phi) ket(psi)
+$ 
+where $ket(phi) = sum_(i) c_i ket(E_i).  $ 
+By virtue of intuition, we can see that $ 
+    bra(phi) = (ket(phi)^*)^T
+$ 
+=== Outer product: a peek 
+
+notice $ 
+    ket(psi) = sum_(i) c_i ket(A_i) &= sum_(i)  braket(A_i,psi) med ket(A_i)  \ 
+    & = sum_(i) ket(A_i) braket(A_i,psi) \ 
+    & = sum_(i) ket(A_i) bra(A_i) ket(psi) \ 
+    & = (sum_(i) ket(A_i) bra(A_i)) ket(psi)
+$ 
+
+Comparing left with right, we observe that $ 
+    sum_(i) ket(A_i) bra(A_i) =  hat(bold(I))   
+$ 
+
+
+== Observables
+We represent physical quantities or states as an linear operator. The genrealization of any physical state is an observable.
+
+=== Linear operator
+An Linear operator is a map on a vector space that preserves its original structure. i.e.,$ 
+    cases( hat(bold(M))(ket(psi) + ket(phi)) =  hat(bold(M)) ket(psi) + hat(bold(M)) ket(phi) , 
+          hat(bold(M))(a ket(psi)) = a hat(bold(M)) ket(psi) 
+    )
+$ 
+=== Definite stsates
+Special states in which observables has one definite value. These states are eigenstates of the observable. They corresponds to eigenvalues, all possible values of the observable. 
+
+Therefore, we can represent physical states as linear combinations of the outcome eigenstates. It is intuitive to propose the following constrains:
+
+1. Observables have real eigenvalues
+2. Eigenstates span the entire vector space.
+3. eigenstates are mutually orthogonal.
+
+Thus, Eigenstates are just the basis of an observable state in disguise!
+$ 
+    ket(psi) = sum_(i) c_i ket(E_i)   
+$ 
+
+== Probablistic Determination of observables: Born's rule
+
+Knowing $ket(psi) = sum_(i) c_i ket(E_i)  $, what is probability of $ket(psi)$ exactly measured to be $ket(E_i)$, i.e. $P(ket(psi) = E_i)$
+
+Observe a relationship between coefficient $c_i$ to the probability of falling into the eigenstate $ket(E_i)$, we propose the following: $ 
+     P(E = E_i) = f(c_i)
+$ with intuitive constrains:
+$ 
+     1. quad P_"total" = sum_(i) f(c_i) = 1 \
+     2. quad abs(ket(psi)^2) = sum_(i)^(n) c_i^2 = k^2 "constant length of eigenstates decomposition"
+$ 
+
+from 2: $
+
+c_1^2 + c_2^2 + dots + c_n^2 = k^2  \
+c_n = plus.minus sqrt(k^2 - a^2 -b^2 - dots  ) = plus.minus A  
+$ 
+
+Obviously, linear combination is invariant under positiveness, so $ 
+    f(c) = f(-c) 
+$ 
+Recall property one: 
+$ 
+    sum_(i)^(n) f(c_i) &= 1 \ 
+     sum_(i)^(n-1) f(c_i) +  f_(c_n) &= 1 \ 
+    sum_(i)^(n-1) (dif f(c_i))/(dif c_1) + (dif f(c_n))/(dif c_1)    & = 0 quad && (*)\ 
+    (dif )/(dif c_1) f(c_1) - f'(sqrt(k^2 - c_1^2 - c_2^2 - dots) ) dot (c_1)/(sqrt(k^2 - c_1^2 dots ) ) & = 0 \ 
+    1/c_1 (dif )/(dif c_1) f(c_1)  & = (f'(sqrt(k^2 - c_1^2 - c_2^2 - dots) ))/(sqrt(k^2 - c_1^2 - c_2^2 - dots) )  && (**)
+$ 
+
+Notice that if we take $ (dif )/(dif c_2)$ on both sides at $(*) $ instead, $(**)$ becomes $ 
+     1/c_2 (dif )/(dif c_2) f(c_2)  & = (f'(sqrt(k^2 - c_1^2 - c_2^2 - dots) ))/(sqrt(k^2 - c_1^2 - c_2^2 - dots) )  
+$ 
+Thus $ 
+      1/c_1 (dif )/(dif c_1) f(c_1) &=  1/c_2 (dif )/(dif c_2) f(c_2) \ 
+      (dif )/(dif c_1)( 1/c_1 (dif )/(dif c_1) f(c_1)) & = (dif )/(dif c_1) underbrace(( 1/c_2 (dif )/(dif c_2) f(c_2) ) , "idpt of" c_1) = 0 
+$ 
