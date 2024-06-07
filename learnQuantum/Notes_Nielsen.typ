@@ -32,34 +32,34 @@ i.e. $(z_1,z_2,z_3,...,z_n)$
  
 - a vector space is closed under scalar multiplicationa nd addition
 
-== Dirac notation
+=== Dirac notation
 #table(
   columns: 2,
   [*Symbols*], [*Meaning*],
   $ket(v)$, [ket, a vector in vec space],
-  $bra(v)$, [bra, a dual vector in vec space; the complex transpose of ket $bra(v) = (ket(v)^*)^T$ ],
+  $bra(v)$, [bra, a dual vector in vec space; the complex transpose of ket $bra(v) = (ket(v)^*)^top$ ],
   $braket(v,w)$, [inner product of $ket(v)$ and $ket(w)$] ,
   $ket(phi) times.circle ket(psi) $, [tensor product of $ket(phi)$ and $ket(psi)$ \ abbriviates as $ ket(phi) ket(psi)$ ],
   $ bold(A)^*$,[complex conjugate of $ bold(A)$ ] ,
-  $ bold(A)^T$, [transpose of $ bold(A)$] ,
+  $ bold(A)^top$, [transpose of $ bold(A)$] ,
   $ bold(A)^dagger$, [hermitian conjugate of $ bold(A)$\ 
-              i.e. $ bold(A)^dagger = (bold(A)^*)^T$ \
+              i.e. $ bold(A)^dagger = (bold(A)^*)^top$ \
               $ display(mat(a,b;c,d)^dagger) = display(mat(a^*, c^(*);b^*, d^* )) $ ] ,
   $bra(phi)  bold(A) ket(psi)$, [inner product betweeen $ket(phi)$ and $ bold(A) ket(psi)$  ] 
 
 )
 
-== Span  
+=== Span  
    a set of bec $ket(v_1), ket(v_2), dots ,  ket(v_n)$ spans the vector space if any vector in the space can be written as $ 
     ket(v) = sum_i a_i ket(v_i) $ for some complex numbers $a_i$ 
-== Linear Independence
+=== Linear Independence
 a set of non-zero vectors $ket(v_1), ket(v_2), dots, ket(v_n)$ are liinearly dependent if there exists a set of complex numbers $a_1,a_2, dots, a_n$, s.t. $ 
       a_1 ket(v_1) + a_2 ket(v_2) + dots + a_n ket(v_n) = 0  
   $ 
     
   If the only solution to the above equation is $a_1 = a_2 = dots = a_n = 0$, then the vectors are *linearly independent*
   
- == Linear operators
+ === Linear operators
   A linear operator $A$ is any linear function that $ 
      A(sum_i a_i ket(v_i)) = sum_i a_i A(ket(v_i)) 
  $ 
@@ -75,7 +75,7 @@ In other words, for a linear operator $A: V -> W$, and suppose $ket(v_1), ket(v_
 $ 
 
 
-== Hilbert Space
+=== Hilbert Space
 Given a vector basis ${ket(E_i)}$ , when attempting to represent a polynomial as $p = sum_(i = 0)^infinity a_i E_i$, the sum is in the form of, according to taylor series, an exponential function. But the exponential function is not a polynomial, i.e. outside of our vector space, so we have landed on a paradox. To avoid this, we define a *Hilbert* *Space* to handle infinite dimensional vector spaces.
 
 - A Hilbert spsace is a vector space that is 1. complete and 2. has an inner product defined on it. In other words, every converging set of vectors must converge to an element *inside* the vector space.
@@ -84,7 +84,7 @@ $
     ket(psi) in cal(H) 
 $ 
 
-
+#line(length: 100%)
 == Inner product
 - Review on dot product
    - orthogonality & angle
@@ -120,7 +120,7 @@ For kets $ket(psi), ket(phi), ket(zeta)$, and scalar $a$, an inner product has t
     $ 
         braket(a psi + b zeta, phi) = a^* braket(psi, phi) + b^* braket(zeta, phi)
     $
-
+#line(length: 100%)
 == Orthonormal basis
 
 $ {ket(E_i)}$ s.t. $braket(E_i,E_j) = delta_(i j) $ is an orthonormal basis,
@@ -184,6 +184,8 @@ notice $
 $ 
 So, the coefficient function $psi(x_0) = braket(x_0,psi)$ 
 
+
+#line(length: 100%)
 == Bra and Braket notation
 === Linear functionals
 A linear functional is a linear function that maps a vector to a scalar: $ 
@@ -218,7 +220,7 @@ Recall the fact that $
 $ 
 where $ket(phi) = sum_(i) c_i ket(E_i).  $ 
 By virtue of intuition, we can see that $ 
-    bra(phi) = (ket(phi)^*)^T
+    bra(phi) = (ket(phi)^*)^top
 $ 
 === Outer product: a peek 
 
@@ -233,6 +235,7 @@ Comparing left with right, we observe that $
     sum_(i) ket(A_i) bra(A_i) =  hat(bold(I))   
 $ 
 
+#line(length: 100%)
 
 == Observables
 We represent physical quantities or states as an linear operator. The genrealization of any physical state is an observable.
@@ -257,6 +260,8 @@ $
     ket(psi) = sum_(i) c_i ket(E_i)   
 $ 
 
+
+#line(length: 100%)
 == Probablistic Determination of observables: Born's rule
 
 Knowing $ket(psi) = sum_(i) c_i ket(E_i)  $, what is probability of $ket(psi)$ exactly measured to be $ket(E_i)$, i.e. $P(ket(psi) = E_i)$
@@ -335,3 +340,6 @@ When applied to a continuous basis, we have the probability density funciton $
      ket(psi) = integral dif x psi(x) ket(x) \
      => p(x) = abs(psi(x))^2
 $ 
+
+#line(length: 100%)
+
