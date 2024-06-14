@@ -343,3 +343,118 @@ $
 
 #line(length: 100%)
 
+== Hermitian Operator
+- New notation: for a linear operator $hat(M)$ and vector $ket(phi)$, we write $ 
+    hat(M)ket(phi) = ket(hat(M)phi) \
+    bra(psi) hat(M) ket(phi) = braket(psi,hat(M)phi)
+$ 
+=== Hermitian adjoint
+
+We define the hermitian adjoint of an operator $hat(M)$ as $hat(M)^dagger$, s.t.: $ 
+    braket(hat(M)^dagger psi, phi) = braket(psi,hat(M)phi) 
+$ 
+
+The hermitian adjoint yields the following properties: $ 
+   1. (hat(M)^dagger)^dagger = hat(M) \
+   2. (a hat(M) + b hat(N))^dagger = a^* hat(M)^dagger + b^* hat(N)^dagger \
+   3. (hat(M) hat(N))^dagger = hat(N)^dagger hat(M)^dagger \
+$ 
+
+=== Hermitian adjoint of a scalar
+for a scalar c $in bb(C)$ , $ 
+    braket(psi,c phi) &= c braket(psi,phi) = braket(c^* psi,phi)\
+    &=braket(c^dagger psi, phi)\
+    => c^dagger = c^*
+$ the hermitian adjoint for a scalar $c$ is its complex conjugate.
+
+=== Hermitian adjoint of a ket
+for kets $ket(psi), ket(phi)$, $ 
+     braket(phi,psi)^dagger = braket(phi,psi)^* =^("comjugate symm.") braket(psi,phi) \
+     braket(phi,psi)^dagger = (bra(phi) med ket(psi))^dagger 
+$ 
+We observe that $ 
+    bra(psi) med ket(phi) = ket(psi)^dagger med bra(phi)^dagger  
+$ We skip the proof, but it is true that $ 
+    ket(psi)^dagger  &= bra(psi) = (ket(psi)^*)^top "complex transpose"\
+    bra(phi)^dagger  &= ket(phi)
+$ 
+
+== Hermitian adjoint of observables
+- recap on observables $hat(E)$ 
+  - eigenstates $ket(E_i)$, measured values $E_i$
+  - rules:  $ 
+      E_i in bb(R) \
+      "span"(ket(E_i)) = bold(V) \
+        braket(E_i,E_j) = delta_(i j)
+  $ 
+
+- Hermitian Operator: defined as any linear operator $hat(M)$ s.t. $hat(M)^dagger  = hat(M)$ 
+
+We show below why any observable $hat(E)$ is hermitian.
+
+Consider an observable acting on a ket, $
+hat(E) ket(psi) &= hat(E) sum_(i) c_i ket(E_i) \ 
+& = sum_(i) c_i hat(E) ket(E_i) \
+& = sum_(i) c_i E_i ket(E_i)  quad "(notice it's just"  bold(A) arrow(x) = lambda arrow(x) ) \ 
+& = sum_(i) braket(E_i,psi) E_i ket(E_i) \ 
+& = sum_(i) E_i ket(E_i) bra(E_i) ket(psi) \
+
+=> hat(E) ket(psi) = (sum_(i) E_i ket(E_i) bra(E_i)) ket(psi) \
+#rect(inset: 8pt)[
+$ display(hat(E) = sum_(i) E_i ket(E_i) bra(E_i))$
+]
+
+$ 
+Similarly, for a continuous basis, an observable $arrow(x) = integral  dif x med x med ket(x) med bra(x) $ 
+
+Now, let's find the hermitian adjoint of an observable $ 
+    hat(E)^dagger  &= (sum_(i) E_i ket(E_i) bra(E_i))^dagger \ 
+    & = sum_(i) (E_i ket(E_i) bra(E_i))^dagger \ 
+    & = sum_(i) (ket(E_i) bra(E_i))^dagger  E_i^dagger \ 
+    & = sum_(i) bra(E_i)^dagger  ket(E_i)^dagger  E_i^dagger \
+    & = sum_(i) bra(E_i)^dagger  ket(E_i)^dagger  E_i^* \ 
+    & = sum_(i) E_i ket(E_i) bra(E_i)quad ("noticing" E_i^* = E_i, "since" E_i in bb(R))   \ 
+    & = hat(E)
+$ 
+$ 
+#rect(inset: 8pt)[
+$ display(     hat(E)^dagger  = hat(E) )$
+]
+$
+We have proved that the observable $hat(E)$ is an hermitian operator. $qed$   
+
+
+== Commutator
+- Two operators $hat(A), hat(B)$  commute iff they satisfy : $hat(A) hat(B) = hat(B) hat(A)$
+- Commutator: defined as $[hat(A), hat(B)] = hat(A) hat(B) -  hat(B) hat(A)$
+
+    If $hat(A) , hat(B)$ are commute, then ${hat(A), hat(B)} = 0$
+
+#rect(inset: 8pt)[
+*Claim: Any two commutative linear operator share a simutanuous eigenbasis*
+]
+Proof:
+
+Given commutative linear operators $hat(A) , hat(B)$, and $[hat(A), hat(B)] = 0$. We are to show that $hat(A)$ and $hat(B)$ share same eigenbasis.
+
+_Linear algebra quick fact: _
+    
+   _ Degeneracy refers to the multiplicities of eigenvalues. If a liear operator has an eigenvalue that cooresponds to $N$ eigenvectors, we say that it is a degenerate eigenvalue with a geometric multiplicity of $N$. These $N$ eigenvectors $ket(phi_i)$  form an *eigenspace*  ${ket(psi)_i}_(i = 1) ^ N$ 
+   A linear operator either has *degenerate eigenvalues* or not. _ 
+
+- Let's consider when $hat(A)$ does not have degenerate eigenvalues, i.e. each eigenvalue of $hat(A)$ corresponds to unique eigenvectors of $hat(A)$. $ 
+    hat(A) ket(psi_i) = lambda_i ket(psi_i) quad "for each" i 
+$ 
+    Consider $hat(B)$ acting on $ket(psi_i)$:$ 
+    hat(A) underline(hat(B) ket(psi_i)) = hat(B) hat(A) ket(psi_i) = lambda_i hat(B) underline(ket(psi_i) )
+    $ Notice that $hat(B) ket(psi_i)$ is still an eigenvector of $hat(A)$ with eigenvalue $lambda_i$. Since we assumed that $lambda_i$ only corresponds to one eigenvector $ket(psi_i)$, $hat(B)ket(psi_i)$can only be the scalar multiple of $ket(psi_i)$, i.e. $ 
+    hat(B)ket(psi_i) = mu_i ket(psi_i) 
+    $ <eq.bevec>
+    Notice that @eq.bevec tells us that  $ket(psi_i)$ is also the eigenvector of $hat(B)$, with new eigenvalue $mu_i$.
+
+    We have thus shown that for any eigenvector of $hat(A)$, it is also the eigenvector of $hat(B)$. Putting on our mathematician hats, we say: ${ket(psi_i)}_(i = 1)^ N$ also span the eigenspace of $hat(B)$ with eigenvalues $mu_i$   
+       
+- Now consider when $hat(A)$ has degenrate eigenvalues, i.e. there exsists certain eigenvalue $lambda$ s.t. $ 
+    hat(A) ket(psi_i) = lambda 
+$ 
+  
