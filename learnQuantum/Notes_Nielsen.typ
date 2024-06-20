@@ -454,7 +454,254 @@ $
 
     We have thus shown that for any eigenvector of $hat(A)$, it is also the eigenvector of $hat(B)$. Putting on our mathematician hats, we say: ${ket(psi_i)}_(i = 1)^ N$ also span the eigenspace of $hat(B)$ with eigenvalues $mu_i$   
        
-- Now consider when $hat(A)$ has degenrate eigenvalues, i.e. there exsists certain eigenvalue $lambda$ s.t. $ 
-    hat(A) ket(psi_i) = lambda 
+- Now consider when $hat(A)$ has degenrate eigenvalues, and for any degenerate eigenvalue with geometric multiplicity of $k$, there exsists $k$ number of eigenvectors $ket(psi)$, where the eigenvectors span an eigenspace $E_lambda$  of $hat(A)$  $ 
+    hat(A) ket(psi_i) = lambda ket(psi_i) "for" i = 1,2,dots, k $ 
+  Consider $hat(B)$ acting on the eigenspace of $hat(A)$: $ 
+      hat(A) hat(B) ket(psi_i) = hat(B) hat(A) ket(psi_i) = lambda hat(B) ket(psi_i) 
+  $ Similar to our previous case, $hat(E) ket(psi_i) in E_lambda$, or $hat(B)$ preserves the eigenspace $E_lambda$   
+
+    Notice that for any vector $ket(alpha) in E_lambda$, where $E_lambda$ is spanned by eigenvectors $ket(psi_i)$  corresponding to the same degenerate eigenvalue $lambda$:
+    $ 
+        hat(A) ket(alpha) &= hat(A) ( sum_(i)^(k) c_i ket(psi_i) ) \ 
+        & = c_i ( sum_(i)^(k) hat(A) ket(psi_i)) \ 
+        & = c_i ( sum_(i)^(k) lambda ket(psi_i) ) \ 
+        & = lambda ( sum_(i)^(k) c_i ket(psi_i) ) \ 
+        & = lambda ket(alpha)
+    $ <eq.anyVectorAlpha>
+       Therefore, any $ket(alpha) in E_lambda$ is an eigenvector of $hat(A)$ with degenerate eigenvalue $lambda$.
+
+    Spectral theorem tells us, and we take it as a fact that: $hat(B)$ is hermitian $=>$ it is diagnolizable on $E_lambda$. Suppose ${ket(phi_i)}$ is the orthonormal basis of $hat(B)_(E_lambda)$ (B constrained in eigenspace E), we have $ 
+        hat(B) ket(phi_i) = mu ket(phi_i), quad i = 1,2, dots,k 
+    $ 
+    B acts in $E_lambda -> ket(phi_i) in E_lambda$ . @eq.anyVectorAlpha tells us that $ket(phi_i)$ is an eigenvector of $hat(A)$ as well. Noticing $ 
+        hat(A) ket(phi_i) = lambda ket(phi_i) 
+    $ we can state that ${ket(phi_i)}$ is also the orthonormal basis of $hat(A)$
+
+    Repeacing the above for every degenerate eigenvalue of $hat(A)$, we can deduct that: 
+
+#highlight[    for each $,  {phi_(j,i)}$, s.t. it is the simutanuous basis of (A)$ and (B)$]
+
+The union of all ${phi_(j,i)}$ forms an orthonormal basis that can simutanuously diagnolize $hat(A)$ and $hat(B)$
+
+Therefore, collecting the above, we have shown that if $[hat(A), hat(B)] = 0$, then they share a common eigenbasis. $qed$  
+
+== Unitary operators
+- A unitary operator is any linear operator whose Hermitian conjugate equals to its inverse. i.e. $ hat(U)^dagger = hat(U)^(-1)$ 
+- Inner product presercation: $ 
+    braket(phi,psi) = braket(hat(U) phi, hat(U) psi) 
 $ 
-  
+    proof:
+    $ 
+        braket(hat(U)phi, hat(U) psi) &= bra(hat(U) phi) med hat(U) med ket(psi) \ 
+        & = bra(phi) med hat(U)^dagger med hat(U) med ket(psi) \ 
+        & = bra(phi) hat(U)^(-1) hat(U) ket(psi) \ 
+        & = bra(phi) hat(I) ket(psi) \ 
+        & = braket(phi,psi) quad qed
+    $ 
+    
+Since inner product can be considered as a generalized dot product, or a measure of the norm and angle of two vectors, we can understand unitary operators as a "*generalized* *rotation*" of two vectors that conserves the norm and angle between them.
+
+- Eigenvalue has unit length: $ 
+    abs(lambda)^2 = 1 
+$ 
+    proof: 
+    consider normalized eigenvector $ket(omega)$ and eigenvalue $lambda$ of $hat(U)$. That is, $ 
+        cases(hat(U) ket(omega) = lambda ket(omega), braket(omega) = 1)
+    $ 
+     consider the following operation: $ 
+         braket(hat(U) omega) = braket(omega) = 1 $    
+         $ 
+         braket(hat(U) omega, hat(U) omega) &= braket(lambda omega) \ 
+         & = lambda lambda^* braket(omega) \ 
+         & = abs(lambda)^2
+     $ 
+     Hence $abs(lambda)^2 = 1$
+
+== Generator in classical mechanics
+Recall the lagrangian formalism:
+$ 
+    cal(L) = T - U = 1/2 m dot(x) - U(x) \
+    (diff cal(L))/(diff x) = (dif )/(dif t) (diff L)/(diff dot(x))  
+$ 
+The following equalities are trivial: $ 
+     (diff cal(L))/(diff x) = (dif )/(dif t) p \
+     (diff cal(L))/(diff p) = (diff )/(diff t) x \
+     (diff cal(L))/(diff t) = - (dif )/(dif t) E \
+     (diff cal(L))/(diff theta) = - (dif )/(dif t) L
+$ 
+Take a second to meditate on the above equalities, and we can find the following interpretation intuitive:
+
+The time evolution of momentum results in a change in position in our "classical state" Lagrangian; 
+
+the time evolution of position results in a change in momentum; 
+
+the time evolution of energy results in a change in time; 
+
+and the time evolution of angular momentum results in a change in angle.
+
+There is a special name for the above: the *generator* of the transformation. For example, momentum is the genrator of spatial change, position is the genertor of momentum change.
+ 
+== Schodinger's equation
+=== Time evolution Operator: $hat(U)(t)$ 
+We have been representing our quantum state as $ket(psi)$. Now let's consider the time evolution via the *time evolution operator *$hat(U)(t)$. It is defined as follows: $ 
+    hat(U)(t) ket(psi) = ket(psi(t) )  
+$ 
+
+We observe several properties of this time evolution operator:
+1. $hat(U)(0)$ represents the time evolution after time zero. Obviously there's no change in our quantum state during 0 seconds, so $ 
+    hat(U)(0) = hat(I) 
+$ 
+2. Time evolution is reversible, so the linear operator $hat(U)(t)$ is invertable.
+3. Recall that the ineer product operation examines the probability of a system being at a quantum state. This probability is conserved over time (why? hypothesis?), so $ 
+    braket(hat(U)(t) psi) = braket(psi) = 1 
+$ 
+4. $hat(U)(t)$ is an unitary operator. We try to proof this property in the following section
+=== Proof of unitary operator $hat(U)$ 
+   
+   Given (writing $hat(U)(t) "as" hat(U) $ ): $ 
+       braket(hat(U) psi) = braket(psi)  
+   $ 
+   $ 
+       "LHS" = braket(psi, hat(U)^dagger med hat(U) med psi) = bra(psi) med hat(U)^dagger  hat(U) ket(psi) \
+         "RHS" = braket(psi) = bra(psi) hat(I) ket(psi) \
+         => bra(psi) hat(U)^dagger hat(U) ket(psi) - bra(psi) hat(I) ket(psi) = 0 \
+         bra(psi)underbrace((hat(U)^dagger hat(U) - hat(I)), "investigate") ket(psi) = 0
+   $ <eq.unitary1>
+   Let's investigate $(hat(U)^dagger hat(U) - hat(I))$ by considering $ 
+       (hat(U)^dagger hat(U) - hat(I))^dagger  = (hat(U)^dagger  hat(U))^dagger  - hat(I)^dagger  = hat(U)^dagger  hat(U) - hat(I)
+   $ 
+    
+  Let $hat(U)^dagger hat(U)- hat(I) equiv hat(A)$, and denote its eigenbasis as ${ket(a_i)}$. Plugging into @eq.unitary1:
+  $ 
+      bra(psi) hat(A) ket(psi) = 0  
+  $ Since it is true for any state $ket(psi)$, we can subsitute $ket(psi)$ as $ket(a_i)$, the eigenbasis of $hat(A)$:
+    $ 
+        bra(a_i) hat(A) ket(a_i) = 0 \
+        bra(a_i) lambda_i ket(a_i) = 0 \
+        lambda_i = 0 quad "for all" i
+  $ 
+  Consider now: $ 
+      hat(A) ket(psi) &= hat(A) sum c_i ket(a_i)   \ 
+      & = sum hat(A) c_i hat(a_i) \ 
+      & = sum lambda_i c_i ket(a_i) \ 
+      & = 0    
+  $ 
+   It is safe to conclude that $hat(A) = hat(0)$. Recalling that 
+   $ hat(A) = hat(U)^dagger hat(U) - hat(I) = 0 \ 
+    hat(U)^dagger  hat(U) = hat(I) \
+    hat(U)^dagger  = hat(U)^(-1) $ we have shown that $hat(U)$ is an unitary operator. $qed$ 
+   
+
+=== Explicit time evolution
+Consider a quantum state $ket(psi)$ that evolves over an infinitisemal time $dif t$. Summoning our friend Taylor, we can show $ 
+    hat(U)(dif t) &= hat(U)(0) + dot(hat(U))(0) dif t + hat(cal(O))(dif t^2) \ 
+    & = hat(I) + dot(hat(U))(0) dif t + hat(cal(O))(dif t^2) \
+$ 
+Now let's look at this infinitisemal time evolution operator acting on $ket(psi)$ 
+$ 
+    hat(U)(dif t) ket(psi) &= hat(I) ket(psi) + dot(hat(U))(0) dif t ket(psi) + hat(cal(O))(dif t^2) ket(psi) \ 
+    & = ket(psi(dif t)) = ket(psi) + dot(hat(U))(0) dif t ket(psi) + hat(cal(O)) (dif t ^2)ket(psi)  
+$ <eq.taylor1>
+
+division of $dif t$ on both sides $ 
+    (ket(psi(dif t))- ket(psi))/(dif t) = dot(hat(U))(0) ket(psi) + underbrace((hat(O)(dif t^2)ket(psi)) / (dif t), "negligible")
+$ 
+as $dif t -> 0$: $ 
+    (dif )/(dif t) ket(psi) = dot(hat(U))(0)ket(psi) 
+$ <eq.ode1>
+Recalling $hat(U)$ is unitary: $hat(I) = hat(U)^dagger (dif t) hat(U)(dif t) $, plugging into @eq.taylor1 :
+$ 
+    hat(I) &= (hat(I) + dot(hat(U))(0)dif t + hat(cal(O))(dif t^2)^dagger ) (hat(I) + dot(hat(U))(0)dif t + hat(cal(O))(dif t^2)) \ 
+    & = hat(I) + dot(hat(U))^dagger  (0) dif t + dot(hat(U))(0) dif t + cal(hat(O))(dif t^2)) $ 
+        as $dif t -> 0$,  
+    $ 
+    
+    => dot(hat(U))^dagger (0) + dot(hat(U))(0) = 0 \
+    dot(hat(U))^dagger (0) = - dot(hat(U))(0)
+$<eq.hermitianU> $dot(hat(U))$ is anti-hermitian.
+
+Now consider $ (i dot(hat(U))(0))^dagger = dot(hat(U))^dagger (0) i^dagger  = i dot(hat(U))(0), $
+
+$i dot(hat(U))(0)$ is Hermitian. Let $hat(H) = i dot(hat(U))(0) => dot(hat(U))(0) = hat(H) slash i$  
+ 
+Now plugging back to @eq.ode1: $ 
+    (dif )/(dif t) ket(psi) = hat(H)/i ket(psi) \
+    i (dif )/(dif t) ket(psi) =  hat(H) ket(psi)
+$ 
+
+Recall that in classical mechanics, the generator of time evolution is Energy. We make an educated guess that $hat(H)$ is an energy operator. Then to align units on both sides, we multiply by $hbar$ who is of the unit $[J dot s]$ : $ 
+#rect(inset: 8pt)[
+$ display(    i hbar (dif )/(dif t) ket(psi) = hat(H) ket(psi) )$
+]
+$
+
+We have thus arrived at the Schrodinger's equation. $qed$
+
+
+== Schrodinger's equation in Momentum, Position and Energy bases
+
+=== Momentum Operator
+Recall that we proposed an energy operator $hat(H)$ on our way in deriving the Schrodinger's equation. This is actually the Hamiltonian of the system, and what we have shown is another way of getting the Hamiltonian-- different than what we've done using Legendre Transform in Classical Mechanics. 
+
+The explicit formula of the Hamiltonian is $ 
+    hat(H) = (hat(p)^2)/(2 m ) + V(hat(x)) 
+$ 
+Where $hat(p) $ is the momentum operator, as we shall discuss below by taking a detour to the Translation Operator $hat(T)(a)$
+
+=== Translation Operator $->$ Momentum Operator
+
+We define the Translation Operator as a linear operator s.t. for any state vector $ket(x)$ and any translational parameter $a$ :  $ 
+    hat(T)(a) ket(x) = ket(x+a) 
+$ 
+ 
+For a quantum state on a continuous basis, $ 
+    hat(T)(a) ket(psi) = hat(T)(a) integral_()  dif x psi(x) ket(x) = integral  dif x psi(x) ket(x+a) 
+$ 
+
+$hat(T)(a)$ is a translation that shifts all the quantum states by $a$.
+
+It is self-evident that such a translation would preserve the overall probability of measurement $ 
+    braket(hat(T) psi) = braket(psi) = 1
+$ 
+It is not hard to proof that the translation operator is unitary. (Similar to the proof of time evolution operator $hat(U)$) $ 
+    hat(T) ^dagger  = hat(T)^(-1) 
+$ 
+
+Now consider a small spacial translation $dif x$, and summoning our friend Taylor: $ 
+    hat(T)(dif x) ket(x) =  hat(I) + dot(hat(T))(0)dif x  + hat(cal(O))(dif x^2) ket(x)
+$ 
+Division by $dif x$, and taking its limit to 0, we have: $ 
+    (dif )/(dif x) ket(x) = dot(hat(T))(0) ket(x) 
+$ <eq.ode2>
+Recalling the Unitary property of $hat(T)$, and reapeating the same step as we did in @eq.hermitianU, we can show that $dot(hat(T))(0)$ is anti-hermitian.
+
+To further exploit @eq.ode2, we use the anti-hermitian property to consider $ 
+    (i dot(hat(T))(0))^dagger = i dot(hat(T))(0) equiv = hat(p) \
+    dot(hat(T))(0) = hat(p) slash i  
+$ @eq.ode2 then becomes $ 
+    i (dif )/(dif x) ket(x) = hat(p) ket(x)
+$
+Via observation, we can see that it is suggesting a generator of spatial translation. Our classical mechanics intuition tells us that this generator is the momentum operator. Now, unifying the units on both sides, we multiply by $hbar$ to arrive at$ 
+    i hbar (dif )/(dif x) ket(x) = hat(p) ket(x) 
+$ It is known as the momentum operator in the position basis.
+
+Repeating similar processes for the position operator and the angular momentum operator, we can collect the following series of equations: $ 
+    cases(display(i hbar (dif )/(dif p) ket(p) = -& hat(x) ket(p)),
+          display(i hbar (dif )/(dif x) ket(x)  =& hat(p) ket(x)),
+          display(i hbar (dif )/(dif theta) ket(theta)  = & hat(L) ket(theta)), 
+           display(i hbar (dif )/(dif psi) ket(t)  = & hat(H) ket(psi)
+    ))
+$ 
+Where position $hat(x)$ is the mementum generator, momentum $hat(p)$ is the translational generator, angular momentum $hat(L)$ is the anglular translation generator, and energy $hat(H)$ is the time-evolution generator.
+
+This set of equations tells us, that physical observables can be understood as generators of some change in the quantum state.
+
+
+==== More on the momentum operator $hat(p)$
+
+Consider $ 
+    hat(p) ket(psi) &=hat(p) integral_(-infinity)^infinity psi(x) ket(x) dif x   \ 
+    & = integral_(-infinity)^(infinity) psi(x) hat(p) ket(x) dif x \ 
+    & = integral_(-infinity)^(infinity)  dif x psi(x) i hbar (dif )/(dif x) ket(x) \
+    &=  
+$ 
