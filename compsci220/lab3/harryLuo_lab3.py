@@ -33,3 +33,4 @@ total_amount = num_packages * PACKAGE_PRICE * percent_price
 # Display the results
 print(f"Discount Amount: $ {discount_amount:,.2f}")
 print(f"Total Amount: $ {total_amount:,.2f}")
+
