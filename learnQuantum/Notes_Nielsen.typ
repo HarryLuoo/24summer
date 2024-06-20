@@ -23,9 +23,11 @@
 
 
 
-= Notes on Quantum computation and quantum information by Nielsen and Chuang
-= Chapter 2: Linear algebra
+= Beginner's Guide to Quantum Mechanics
 
+- Notes on Nielsen's Quantum Computation and Quantum Information Chpt II, and YouTube tutorial "Math of Quantum Mechanics" by Quantum Sense
+- Drafted by Harry Luo
+#outline(indent: auto)
 == vector space
 - $C^(n) $: space of all n-tuple complex numbers (c numbers)
 i.e. $(z_1,z_2,z_3,...,z_n)$
@@ -635,10 +637,10 @@ $ display(    i hbar (dif )/(dif t) ket(psi) = hat(H) ket(psi) )$
 ]
 $
 
-We have thus arrived at the Schrodinger's equation. $qed$
+We have thus arrived at the time-dependent Schrodinger's equation. $qed$
 
 
-== Schrodinger's equation in Momentum, Position and Energy bases
+== Generator of Momentum, Position and Energy 
 
 === Momentum Operator
 Recall that we proposed an energy operator $hat(H)$ on our way in deriving the Schrodinger's equation. This is actually the Hamiltonian of the system, and what we have shown is another way of getting the Hamiltonian-- different than what we've done using Legendre Transform in Classical Mechanics. 
@@ -703,5 +705,60 @@ Consider $
     hat(p) ket(psi) &=hat(p) integral_(-infinity)^infinity psi(x) ket(x) dif x   \ 
     & = integral_(-infinity)^(infinity) psi(x) hat(p) ket(x) dif x \ 
     & = integral_(-infinity)^(infinity)  dif x psi(x) i hbar (dif )/(dif x) ket(x) \
-    &=  
+    &=  eval([i hbar psi(x) ket(x)]) _(-infinity)^(infinity) - integral_(-infinity)^(infinity) dif x (i hbar) (dif psi)/(dif x) ket(x) \ 
+$ <eq.ppsi>
+We can see that the first term is zero, as our wavefunction be *localized* in space, which by definition means the wavefunction vanishes at infinity.
+Thus @eq.ppsi becomes$ 
+    hat(p) ket(psi) = integral dif x (- i hbar (dif )/(dif x) psi(x)) ket(x) 
 $ 
+i.e. $hat(p)$ can be seen as an operator s.t. $ 
+    ket(psi) ==>^(hat(p)) -i hbar (dif )/(dif x) psi(x)
+$ 
+This is equivalent to taking the ineer product of $hat(p)$ and $ket(psi)$ in the position basis. $ 
+    braket(x, hat(p) psi) = -i hbar (dif )/(dif x) psi(x) 
+$ 
+
+== Position-basis, momentum-basis, and Energy-basis Schrodinger's equations
+Recall the time-dependent Schrodinger's equation, and the Hamiltonian operator on a system $ 
+    cases(i hbar (dif )/(dif t) ket(psi) = hat(H) ket(psi), hat(H) = (hat(p)^2)/(2 m) + V(hat(x)))
+$ 
+$ 
+    => i hbar (dif )/(dif t) ket(psi) = (hat(p)^2)/(2 m ) ket(psi) + V(hat(x)) ket(psi) 
+$ <eq.rawschro>Taking the inner product on the position basis...
+$ 
+    bra(x) i hbar (dif )/(dif t) ket(psi) &= bra(x) (hat(p)^2)/(2 m) ket(psi) + bra(x) V(hat(x)) ket(psi) \
+i hbar (diff )/(diff t) braket(x,psi) &= -(hbar^2)/(2m) (diff^2 )/(diff x)^2 braket(x,psi) + V(x) braket(x,psi)
+$ 
+Recognizing that $braket(x,psi)$ represents coefficient of the quantum state $ket(psi)$in the position basis $ket(x)$, this is the wavefunction $psi(x,t)$    
+The above then simplifies to $ 
+#rect(inset: 8pt)[
+$ display(    i hbar (diff )/(diff t) psi(x,t) = -(hbar^2)/(2 m) (diff ^2)/(diff x^2) psi(x,t) + V(x) psi(x,t))$
+]
+  
+$ 
+
+And this is the Schrodinger's equation in the position basis.
+
+Similarly, taking the inner product of @eq.rawschro on the momentum basis, and given that $bra(p) hat(x) ket(psi) = i hbar (dif )/(dif p) phi(p)$, where $phi(p)$ is the momentum wavefunction, we can show $ 
+    i hbar bra(p) (dif )/(dif t) ket(psi) &= bra(p) (hat(p)^2)/(2 m) ket(psi) + bra(p) V(hat(x)) ket(psi) $ 
+         
+    $ 
+    
+#rect(inset: 8pt)[
+$ display(    => quad i hbar (diff )/(diff t) phi(p,t) &= (p^2)/(2m) phi(p,t) + V(i hbar (diff )/(diff p) ) phi(p,t))$
+]
+
+$ 
+  This is the Schrodinger's equation in the momentum basis.
+
+Taking the inner product of the time-dependent schrodinger's equation with respect to the energy basis,
+$ 
+     i hbar bra(E_i) (dif )/(dif t) ket(psi) &= bra(E_i) hat(H) ket(psi) $ 
+          
+     $ 
+     
+#rect(inset: 8pt)[
+$ display(     => i hbar (dif )/(dif t) c_i(t) &= E_i c_i(t))$
+]
+
+$ where $c_i$represents the coefficients of the quantum state $ket(psi)$ in the energy basis $ket(E_i)$, and $E_i$ is the energy eigenvalue. This is the Schrodinger's equation in the energy basis.
