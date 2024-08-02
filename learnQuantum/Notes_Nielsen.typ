@@ -224,7 +224,7 @@ where $ket(phi) = sum_(i) c_i ket(E_i).  $
 By virtue of intuition, we can see that $ 
     bra(phi) = (ket(phi)^*)^top
 $ 
-=== Outer product: a peek 
+=== Outer product
 
 notice $ 
     ket(psi) = sum_(i) c_i ket(A_i) &= sum_(i)  braket(A_i,psi) med ket(A_i)  \ 
@@ -236,6 +236,12 @@ $
 Comparing left with right, we observe that $ 
     sum_(i) ket(A_i) bra(A_i) =  hat(bold(I))   
 $ 
+
+Generally, for $ket(a) = display(mat(a_1;a_2)), ket(b) = display(mat(b_1;b_2))  $ then $bra(b) = display(mat(b_1^* , b_2^*)) $ so
+     
+$ 
+ketbra(a,b) = display(mat(a_1;a_2)) display(mat(b_1^* , b_2^*)) = display(mat(a_1 b_1^*, a_1 b_2^*; a_2 b_1^*, a_2 b_2^*)) 
+ $ 
 
 #line(length: 100%)
 
