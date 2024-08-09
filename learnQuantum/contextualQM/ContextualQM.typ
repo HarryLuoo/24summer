@@ -9,11 +9,13 @@
 ))
 
 
- = Notes on Contextual Quantum Metrology
+ = Notes on \ _Contextual Quantum Metrology, J.Jae et. al. 2024_
+
+ Drafted: Guizhong Luo
  #set heading(numbering: "1.1")
  #line(length: 100%)
 = Quantum Fisher information 
-eq.5 on page 5 of @Jae_2024 shows
+The experimental setup designed by J.Jae et. al generates the following quantum state after going through the cascaded QWP-HWP-QWP plates:
 $ 
     ket(psi)_"in"  &= "QWP"_2(pi/4) med "HWP"(p)med "QWP"_1(q) med ket(H) \ 
     & = e^(i(-2p + q + pi/4)) display(mat(cos(pi/4 - q);e^(i(4p-2q-pi/2)) sin(pi/4 -q) ))  
@@ -39,13 +41,14 @@ $
    => braket(partial_theta psi)= (1/4 sin^2((theta+theta_0)/2)) + (1/4 cos^2((theta+theta_0)/2)) = 1/4
 $ <eq.7>
 $ 
-     (braket(partial_theta psi, psi))^2 &= 1/4 sin^2((theta+theta_0)/2) cos^2((theta+theta_0)/2) +1/4 sin^2((theta+theta_0)/2) cos^2((theta+theta_0)/2) \ & - 1/2 sin^2((theta+theta_0)/2) cos^2((theta+theta_0)/2) \ &= 0
+     (braket(partial_theta psi, psi))^2 &= 1/4 sin^2((theta+theta_0)/2) cos^2((theta+theta_0)/2) +1/4 sin^2((theta+theta_0)/2) cos^2((theta+theta_0)/2) \ & quad - 1/2 sin^2((theta+theta_0)/2) cos^2((theta+theta_0)/2) \ &= 0
 $ <eq.8>
 
 collecting @eq.7, @eq.8,  $ #rect(inset: 8pt)[
-$display( F_Q = 4 dot (1/4+0) = 1 )$
+$display( F_Q = 4 dot (1/4+0) = 1 )$,
 ]
  $
+ which agrees with what was claimed on @Jae_2024, page 3.
 #pagebreak()
 #line(length: 100%)
 = Contextual Quantum Fisher Information via quasiprobability
@@ -57,7 +60,7 @@ $display( F_Q = 4 dot (1/4+0) = 1 )$
   $ <eq.born>
     
 === Projective Measurements
-  The experiment involves two types of measurements:
+  The experiment design in the paper involves two types of measurements @Jae_2024:
   - $cal(A)$: measurement in  $H , V$  basis , with $Pi_H = ketbra(H), Pi_V = ketbra(V)$
   - $cal(B)$ : measurement in $D,A$  basis, with  $Pi_D = ketbra(D), Pi_A = ketbra(A)$, where $ 
        ket(D) = 1/sqrt(2) (ket(H) + ket(V));quad  ket(A) = 1/sqrt(2) (ket(H) - ket(V)).
@@ -80,8 +83,8 @@ $
       F_"co" = sum_(a,b) w(a,b|theta) med [partial_theta ln w(a,b|theta)]^2   
   $ <eq.co>
 
-== Calculating Operational QUasiprobability
-There are three major terms in @eq.quasi, so we will calculate them seperatedly as follows.
+== Calculating Operational Quasiprobability
+There are three major terms in @eq.quasi, namely the joint probability $p(a,b|cal(A), cal(B), theta )$, conditional probability $p(b|cal(B),theta)$, and marginal probability $p(b|cal(A),cal(B),theta)$. We will calculate them seperatedly in the succeeding subsections.
 === Joint probability $p(a,b|cal(A),cal(B),theta)$ 
  
  Let $a$ and $b$ represent the specific measurement outcomes corresponding to the projection operators $Pi_cal(A) = ket(A)  bra(A)$ and $Pi_cal(B) = ket(B)bra(B)$. i.e. $a = ket(A), b = ket(B)$.  
@@ -196,7 +199,7 @@ $
     & = 1/4( 1- cos (theta + theta_0) - sin(theta+theta_0) cos phi))
 $ 
 
-This set of results agrees with: $ w(a,b|theta)=(1+(-1)^(a)cos theta+(-1)^(b)sin theta cos phi)slash 4, $ as claimed in @Jae_2024. 
+This set of quasipaobabilities agrees with: $ w(a,b|theta)=(1+(-1)^(a)cos theta+(-1)^(b)sin theta cos phi)slash 4, $ as claimed in @Jae_2024, page 3. 
 
 
 == Contextual Fisher Information (coFI)
@@ -204,7 +207,47 @@ coFI is given in @Jae_2024 as$
     F_"co" = sum_(a,b) w(a,b|theta) med [partial_theta ln w(a,b|theta)]^2   
 $ 
 
-Using the results from above, we can expand it as follows:
+Using the results from above, for $a in {H,V}, b in {D,A}$  we can expand it as:
+
+$ 
+  F_"co" 
+        & = w(H,D|theta) [partial_theta ln w(H,D|theta)]^2 +w(H,A|theta) [partial_theta ln w(H,A|theta)]^2 \  
+        & quad +w(V,D|theta) [partial_theta ln w(V,D|theta)]^2 +  w(V,A|theta) [partial_theta ln w(V,A|theta)]^2 \
+  &= ((-cos(phi) cos(theta + theta_0) + sin(theta + theta_0))^2) / 
+(4 (1 + cos(theta + theta_0) + cos(phi) sin(theta + theta_0))) \ 
+& quad + ((cos(phi) cos(theta + theta_0) + sin(theta + theta_0))^2) / 
+(4 (1 + cos(theta + theta_0) - cos(phi) sin(theta + theta_0))) \
+& quad + ((cos(phi) cos(theta + theta_0) + sin(theta + theta_0))^2) / 
+(4 (1 - cos(theta + theta_0) + cos(phi) sin(theta + theta_0))) \
+& quad  -((-cos(phi) cos(theta + theta_0) + sin(theta + theta_0))^2) / 
+(4 (-1 + cos(theta + theta_0) + cos(phi) sin(theta + theta_0)))
+$ 
+
+ We analyse numerically for the behaviour of $F_"co"$ by taking $theta_0=0.5pi$ as suggested in the paper. @Jae_2024
+
  
+#figure(
+  image("f_co_(phi=0).png"),
+)
+
+#figure(
+  image("f_co_(phi=0.1pi).png"),
+)
+#figure(
+  image("f_co_(phi=0.15pi).png"),
+)
+
+#figure(
+  image("f_co_(phi=0.4pi).png"),
+)
+
+#figure(
+  image("f_co_(phi=0.9pi).png"),
+)
+
+
+
+
+
 
 #bibliography("ref.bib")
